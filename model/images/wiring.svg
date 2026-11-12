@@ -1,11 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="930" viewBox="0 0 1120 930" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="1290" viewBox="0 0 1120 1290" role="img" aria-labelledby="title desc">
   <title id="title">ForceGripper wiring</title>
-  <desc id="desc">Join cell A white and cell B black to E plus. Join cell A black and cell B white to E minus. Connect the red leads separately, cell A to A plus and cell B to A minus. Connect the FireBeetle 3V3, GND, D3, and D2 pins to HX711 VCC, GND, DAT, and SCK respectively. The battery plugs into FireBeetle BAT.</desc>
+  <desc id="desc">Join cell A white and cell B black to E plus. Join cell A black and cell B white to E minus. Connect the red leads separately, cell A to A plus and cell B to A minus. Connect the FireBeetle 3V3, GND, D3, and D2 pins to HX711 VCC, GND, DAT, and SCK respectively. The battery plugs into FireBeetle BAT. The Soldered 333005 v1.2.0 board pads and JP1 rate selector are shown below.</desc>
   <defs>
     <style>
       text { font-family: Arial, sans-serif; fill: #14283b; }
       .heading { font-size: 29px; font-weight: 700; }
       .label { font-size: 20px; font-weight: 700; }
+      .silk text { fill: #fff; }
+      .silk text.unused { fill: #cab5d4; }
       .pin { font-size: 19px; font-weight: 700; }
       .small { font-size: 18px; fill: #3a5266; }
       .kicker { font-size: 15px; font-weight: 700; letter-spacing: 1.5px; fill: #42617b; }
@@ -21,10 +23,10 @@
       .terminal { fill: #fff; stroke: #294a60; stroke-width: 2.5; }
     </style>
   </defs>
-  <rect width="1120" height="930" rx="18" fill="#f4f8fb"/>
+  <rect width="1120" height="1290" rx="18" fill="#f4f8fb"/>
   <rect x="32" y="28" width="1056" height="504" rx="14" fill="#eaf1f6" stroke="#cad9e4"/>
   <text x="60" y="65" class="kicker">LOAD CELLS → HX711</text>
-  <text x="60" y="102" class="heading">Cross the white and black leads</text>
+  <text x="60" y="102" class="heading">Make the two bridge splices</text>
 
   <rect x="60" y="186" width="216" height="210" rx="13" fill="#fff" stroke="#9bb0c1" stroke-width="2"/>
   <text x="81" y="219" class="label">Cell A</text>
@@ -64,30 +66,81 @@
   <text x="560" y="467" text-anchor="middle" class="small">A black + B white</text>
   <text x="560" y="507" text-anchor="middle" class="small">Each teal dot is one splice. The two red leads stay separate.</text>
 
-  <rect x="32" y="552" width="1056" height="350" rx="14" fill="#eaf1f6" stroke="#cad9e4"/>
-  <text x="60" y="588" class="kicker">HX711 → FIREBEETLE</text>
-  <rect x="60" y="613" width="304" height="220" rx="13" fill="#d7eee5" stroke="#73a99c" stroke-width="2"/>
-  <rect x="756" y="613" width="304" height="220" rx="13" fill="#dceafa" stroke="#90abc6" stroke-width="2"/>
-  <text x="85" y="648" class="label">HX711</text>
-  <text x="782" y="648" class="label">FireBeetle 2 ESP32-C6</text>
+  <rect x="32" y="552" width="1056" height="475" rx="14" fill="#eaf1f6" stroke="#cad9e4"/>
+  <text x="60" y="587" class="kicker">SOLDERED HX711 333005 · V1.2.0</text>
+  <text x="60" y="626" class="heading">Solder to the pads shown</text>
+  <text x="60" y="655" class="small">Component side up, mounting holes on the right</text>
 
-  <path d="M364 676H756" class="wire red"/>
-  <path d="M364 715H756" class="wire ground"/>
-  <path d="M364 754H756" class="wire data"/>
-  <path d="M364 793H756" class="wire clock"/>
-  <g class="terminal">
-    <circle cx="364" cy="676" r="5"/><circle cx="756" cy="676" r="5"/>
-    <circle cx="364" cy="715" r="5"/><circle cx="756" cy="715" r="5"/>
-    <circle cx="364" cy="754" r="5"/><circle cx="756" cy="754" r="5"/>
-    <circle cx="364" cy="793" r="5"/><circle cx="756" cy="793" r="5"/>
+  <!-- Pad order and orientation from the manufacturer's v1.2.0 pinout. -->
+  <rect x="397" y="677" width="326" height="326" rx="27" fill="#52226e" stroke="#36174f" stroke-width="3"/>
+  <g fill="#172032" stroke="#c0a0d1" stroke-width="4">
+    <circle cx="681" cy="721" r="23"/><circle cx="681" cy="958" r="23"/>
   </g>
+  <rect x="531" y="756" width="57" height="149" rx="5" fill="#242839" stroke="#a285b4"/>
+  <circle cx="542" cy="770" r="3" fill="#d7d2d9"/>
+  <path d="M518 768H530 M518 785H530 M518 802H530 M518 819H530 M518 836H530 M518 853H530 M518 870H530 M518 887H530
+           M588 768H601 M588 785H601 M588 802H601 M588 819H601 M588 836H601 M588 853H601 M588 870H601 M588 887H601"
+        stroke="#c9becb" stroke-width="5"/>
+  <text x="559" y="831" text-anchor="middle" transform="rotate(-90 559 831)" style="fill:#efe4f0;font-size:14px;font-weight:700">HX711</text>
+  <g fill="#bba6bf">
+    <rect x="501" y="704" width="18" height="9" rx="2"/><rect x="523" y="697" width="12" height="17" rx="2"/>
+    <rect x="548" y="706" width="22" height="10" rx="2"/><rect x="580" y="698" width="16" height="17" rx="2"/>
+    <rect x="611" y="718" width="16" height="9" rx="2"/><rect x="609" y="736" width="16" height="9" rx="2"/>
+    <rect x="510" y="924" width="15" height="10" rx="2"/><rect x="533" y="924" width="15" height="10" rx="2"/>
+    <rect x="555" y="924" width="15" height="10" rx="2"/><rect x="578" y="924" width="15" height="10" rx="2"/>
+  </g>
+
+  <rect x="57" y="687" width="280" height="175" rx="12" fill="#fff" stroke="#9bb0c1" stroke-width="2"/>
   <g class="pin" text-anchor="end">
-    <text x="339" y="683">VCC</text><text x="339" y="722">GND</text>
-    <text x="339" y="761">DAT / DT / DOUT</text><text x="339" y="800">SCK / CLK</text>
+    <text x="318" y="720">A white + B black splice</text>
+    <text x="318" y="759">A black + B white splice</text>
+    <text x="318" y="798">Cell B red</text>
+    <text x="318" y="837">Cell A red</text>
+  </g>
+  <path d="M338 713H426 M338 752H426" class="wire exc"/>
+  <path d="M338 791H426 M338 830H426" class="wire red"/>
+  <g class="pin silk">
+    <text x="452" y="720" fill="#fff">E+</text><text x="452" y="759" fill="#fff">E−</text>
+    <text x="452" y="798" fill="#fff">A−</text><text x="452" y="837" fill="#fff">A+</text>
+    <text x="452" y="876" class="unused">GND</text>
+    <text x="452" y="915" class="unused">B+</text><text x="452" y="954" class="unused">B−</text>
+  </g>
+
+  <rect x="795" y="747" width="254" height="210" rx="12" fill="#dceafa" stroke="#90abc6" stroke-width="2"/>
+  <text x="815" y="775" class="label">FireBeetle ESP32-C6</text>
+  <path d="M694 791H795" class="wire ground"/>
+  <path d="M694 830H795" class="wire red"/>
+  <path d="M694 869H795" class="wire data"/>
+  <path d="M694 908H795" class="wire clock"/>
+  <g class="pin silk" text-anchor="end">
+    <text x="671" y="798" fill="#fff">GND</text><text x="671" y="837" fill="#fff">VCC</text>
+    <text x="671" y="876" fill="#fff">DAT</text><text x="671" y="915" fill="#fff">SCK</text>
   </g>
   <g class="pin">
-    <text x="781" y="683">3V3</text><text x="781" y="722">GND</text>
-    <text x="781" y="761">D3 / GPIO14</text><text x="781" y="800">D2 / GPIO8</text>
+    <text x="815" y="798">GND</text><text x="815" y="837">3V3</text>
+    <text x="815" y="876">D3 / GPIO14</text><text x="815" y="915">D2 / GPIO8</text>
   </g>
-  <text x="60" y="875" class="small">Battery → FireBeetle BAT connector · check plug polarity</text>
+  <g fill="#352740" stroke="#d3af69" stroke-width="4">
+    <circle cx="426" cy="713" r="7"/><circle cx="426" cy="752" r="7"/>
+    <circle cx="426" cy="791" r="7"/><circle cx="426" cy="830" r="7"/>
+    <circle cx="426" cy="869" r="7"/><circle cx="426" cy="908" r="7"/><circle cx="426" cy="947" r="7"/>
+    <circle cx="694" cy="791" r="7"/><circle cx="694" cy="830" r="7"/>
+    <circle cx="694" cy="869" r="7"/><circle cx="694" cy="908" r="7"/>
+  </g>
+  <text x="61" y="908" class="small">Leave the left GND and</text>
+  <text x="61" y="932" class="small">both B inputs open here.</text>
+
+  <rect x="32" y="1045" width="1056" height="216" rx="14" fill="#eaf1f6" stroke="#cad9e4"/>
+  <text x="60" y="1080" class="kicker">RATE SELECTOR · JP1</text>
+  <text x="60" y="1120" class="heading">Connect RATE to VCC for 80 samples/s</text>
+  <text x="60" y="1154" class="small">Open any RATE–GND bridge first. The wiring here uses 3.3 V VCC.</text>
+  <text x="60" y="1219" class="small">JP1 electrical order</text>
+  <path d="M304 1213H493" class="wire red"/>
+  <g class="terminal">
+    <circle cx="304" cy="1213" r="7"/><circle cx="493" cy="1213" r="7"/><circle cx="682" cy="1213" r="7"/>
+  </g>
+  <g class="pin" text-anchor="middle">
+    <text x="304" y="1192">1 · VCC</text><text x="493" y="1192">2 · RATE</text><text x="682" y="1192">3 · GND</text>
+  </g>
+  <text x="746" y="1219" class="small">1–2: 80 SPS · 2–3: 10 SPS</text>
 </svg>

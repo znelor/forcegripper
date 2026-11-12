@@ -24,9 +24,15 @@ def pcb(length, width, holes, hole_diameter):
 
 
 def load_cell():
-    """Envelope of the square sensor, with the load tip pointing down."""
+    """Photo-based sensor reference with the v3 fit dimensions and tip pointing down."""
     plate = extrude(RectangleRounded(chamber.SENSOR_DEPTH, chamber.SENSOR_WIDTH, 1.5),
                     amount=chamber.SENSOR_THICKNESS)
+    # Approximate the stamped U-shaped relief. Leave the tongue joined at +X.
+    outer = RectangleRounded(25, 22, 5)
+    inner = RectangleRounded(21, 18, 4)
+    relief = extrude(outer - inner, amount=chamber.SENSOR_THICKNESS + 1)
+    relief = relief & (Pos(-9, 0, 0) * block(36, 36, chamber.SENSOR_THICKNESS + 1))
+    plate -= relief
     tip = Pos(-shell.SENSOR_TIP_OFFSET_FROM_CENTER, 0, -shell.SENSOR_TIP_PROTRUSION / 2)
     return plate + tip * Cylinder(5, shell.SENSOR_TIP_PROTRUSION + 0.02)
 
