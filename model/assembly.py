@@ -4,7 +4,7 @@ from argparse import ArgumentParser
 from pathlib import Path
 
 from build123d import (
-    Align, Box, Color, Compound, Cylinder, Pos, RectangleRounded, Rot,
+    Align, Box, Color, Compound, Cylinder, Pos, RectangleRounded, RegularPolygon, Rot,
     export_step, export_stl, extrude,
 )
 
@@ -52,6 +52,59 @@ def battery():
     return extrude(RectangleRounded(46, 24, 2.0), amount=8.4)
 
 
+def socket_screw(length, shaft_dia, head_dia, head_height, socket_width):
+    """Fastener reference with the bearing face at Z=0 and shaft pointing down."""
+    head = Cylinder(head_dia / 2, head_height, align=(Align.CENTER, Align.CENTER, Align.MIN))
+    shaft = Pos(0, 0, 0.01) * Cylinder(
+        shaft_dia / 2, length + 0.01, align=(Align.CENTER, Align.CENTER, Align.MAX)
+    )
+    socket = Pos(0, 0, head_height / 2) * extrude(
+        RegularPolygon(socket_width / 2, 6, major_radius=False), amount=head_height
+    )
+    return (head + shaft) - socket
+
+
+def corner_hardware(platform_z):
+    head_seat = platform_z + shell.COVER_HEIGHT - shell.COVER_SCREW_HEAD_DEPTH
+    nut_height = 2.4
+    nut_top = -shell.COUNTERPLATE_NUT_SEAT_Z
+    screw = socket_screw(head_seat - nut_top + nut_height + 0.5, 3, 5.5, 3, 2.5)
+    nut = extrude(RegularPolygon(6.35 / 2, 6), amount=nut_height) - Cylinder(1.5, 6)
+    insert = Cylinder(chamber.BRASS_INSERT_PILOT_DIA / 2, chamber.BRASS_INSERT_DEPTH)
+    insert -= Cylinder(1.5, chamber.BRASS_INSERT_DEPTH + 1)
+    positions = [
+        (sx * (chamber.CORE_LENGTH / 2 - chamber.M3_SCREW_INSET),
+         sy * (chamber.BODY_WIDTH / 2 - chamber.M3_SCREW_INSET))
+        for sx in (-1, 1) for sy in (-1, 1)
+    ]
+    for index, (x, y) in enumerate(positions, start=1):
+        yield f"Corner screw {index}", screw, Pos(x, y, head_seat), "#657684"
+        yield f"Heat-set insert {index}", insert, Pos(x, y, platform_z - chamber.BRASS_INSERT_DEPTH / 2), "#c29443"
+        yield f"Corner nut {index}", nut, Pos(x, y, nut_top - nut_height), "#657684"
+
+
+def board_hardware(platform_z):
+    hx_screw = socket_screw(3.8, chamber.HX711M3_PILOT_DIA, 5.2, 1.8, 2)
+    esp_screw = socket_screw(3.8, chamber.M2_PILOT, 3.7, 1.5, 1.5)
+    # Represent the screw cores where they engage the printed pilot holes.
+    for index, sign in enumerate((-1, 1), start=1):
+        yield (
+            f"HX711 screw {index}", hx_screw,
+            Pos(chamber.HX711M3_HOLE_X,
+                chamber.HX711M3_HOLE_Y + sign * chamber.HX711M3_HOLE_SPACING / 2,
+                platform_z + chamber.HX711M3_STANDOFF_HEIGHT + 1.6),
+            "#657684",
+        )
+    for index, (sx, sy) in enumerate(((-1, -1), (-1, 1), (1, -1), (1, 1)), start=1):
+        yield (
+            f"FireBeetle screw {index}", esp_screw,
+            Pos(chamber.ESP32_CENTER_X + sx * chamber.ESP32_HOLE_SPACING_X / 2,
+                chamber.ESP32_Y_OFFSET + sy * chamber.ESP32_HOLE_SPACING_Y / 2,
+                platform_z + chamber.STANDOFF_HEIGHT + 1.6),
+            "#657684",
+        )
+
+
 def parts():
     platform_z = chamber.BODY_HEIGHT + chamber.PLATFORM_HEIGHT
     rail_z = chamber.BOTTOM_LIP_HEIGHT + chamber.SENSOR_Z_LIFT
@@ -75,6 +128,8 @@ def parts():
             for sign in (1, -1)
         ],
         ("Counterplate", shell.create_counterplate(), Rot(0, 180, 0), "#6987a4"),
+        *corner_hardware(platform_z),
+        *board_hardware(platform_z),
     ]
 
 

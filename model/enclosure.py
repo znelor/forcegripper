@@ -34,6 +34,7 @@ ESP32_COVER_END_CLEARANCE = 2.0
 ESP32_COVER_SIDE_CLEARANCE = 2.0
 ESP32_COVER_CLEARANCE_WIDTH = FIREBEETLE_BOARD_WIDTH + 2 * ESP32_COVER_SIDE_CLEARANCE
 COVER_HEIGHT = 18.0
+COVER_SCREW_HEAD_DEPTH = 12.0
 TOP_EXTRA_THICKNESS = 4.0
 USB_C_OPENING_WIDTH = 16.0
 USB_C_OPENING_HEIGHT = 8.0
@@ -186,7 +187,6 @@ def create_top_cover() -> object:
         m3_screw_x = (CORE_LENGTH / 2) - M3_SCREW_INSET
         m3_screw_y = (BODY_WIDTH / 2) - M3_SCREW_INSET
         cover_screw_head_dia = 5.65
-        cover_screw_head_depth = 12.0
 
         cover_screw_positions = [
             (m3_screw_x, m3_screw_y),
@@ -203,7 +203,7 @@ def create_top_cover() -> object:
                          mode=Mode.SUBTRACT)
             # Counterbore for screw head from top
             with Locations((cx, cy, COVER_HEIGHT)):
-                Cylinder(radius=cover_screw_head_dia/2, height=cover_screw_head_depth,
+                Cylinder(radius=cover_screw_head_dia/2, height=COVER_SCREW_HEAD_DEPTH,
                          align=(Align.CENTER, Align.CENTER, Align.MAX),
                          mode=Mode.SUBTRACT)
 

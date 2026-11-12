@@ -2,7 +2,7 @@
 
 ## 3D model
 
-[Open or download the full v3 STEP assembly](model/forcegripper_v3.step). It includes the enclosure, two load cells, two contact discs, the HX711 breakout, the FireBeetle 2 ESP32-C6, and the battery.
+[Open or download the full v3 STEP assembly](model/forcegripper_v3.step). It includes the enclosure, two load cells and contact discs, the HX711 breakout, the FireBeetle 2 ESP32-C6, the battery, and the fasteners.
 
 ![Lowrails v3 sensor chamber with a callout for its 38 by 10 mm lengthwise opening](model/images/sensor-chamber.png)
 
@@ -23,17 +23,44 @@ Pass an output directory to export elsewhere. Run [sensor_chamber.py](model/sens
 
 ## Assembly
 
-![Exploded v3 assembly showing the top cover, three electronics components, chamber, two load cells, contact discs, and counterplate](model/images/exploded-assembly.png)
+![Four-step animation showing the load cells sliding onto the rails, the boards and battery seating, the enclosure closing, and the corner screws and nuts going in](model/images/assembly.gif)
 
-1. Feed each load cell edge-first through the **38 × 10 mm** slot, with its 34 mm edge parallel to the long side of the chamber. Rotate it flat into the channel, orient its load tip down and toward the center, then slide it along the rails toward its end stop. Route the leads back up through the center slot.
-2. Mount the HX711 on the two M3 bosses and the FireBeetle on the four M2 bosses. Place the battery between them, keeping the exposed end of the center slot clear for the sensor leads. Face the FireBeetle USB-C port toward the opening in the cover.
-3. Seat two one-cent euro coins as contact discs in the counterplate pockets and face the pockets toward the load tips. Place the top cover over the electronics and align the counterplate below the chamber. Fit the four M3 heat-set inserts in the chamber. The corner screws pass through the cover, thread through the inserts, and reach the nuts in the counterplate. Verify the load tips move freely and the wires stay clear before closing.
+### 1. Install the load cells
 
-![Underside view showing both load cell tips facing inward and arrows toward the two rail stops](model/images/load-cell-placement.png)
+With the counterplate off, pass each 34 mm cell edge-first through the lengthwise slot. Rotate it flat with the load tip facing down and toward the center. Slide it along the rails toward its end stop. Bring the leads back up through the slot.
+
+![Underside view showing both load tips facing inward and arrows pointing outward along the rails](model/images/load-cell-placement.png)
+
+### 2. Mount and wire the electronics
+
+Mount the HX711 on the two M3 bosses and the FireBeetle on the four M2 bosses. Face the USB-C port toward the cover opening. Place the battery between the boards and keep the center slot and corner screw paths clear. Use screws that engage the pilot holes without bottoming out.
+
+![Top view of the open chamber showing the two boards, battery, and schematic routes for the wiring](model/images/electronics-routing.png)
+
+With USB and the battery disconnected, wire the boards as shown. Use a breakout that supports 3.3 V supply and logic. If the breakout has a RATE selector, set it to 80 samples/s for this firmware. Connect a compatible battery to **BAT** after checking the plug polarity. [FireBeetle pinout](https://wiki.dfrobot.com/dfr1075/#pinout) · [HX711 pinout](https://docs.soldered.com/hx711/hardware/)
+
+![Wiring map for the FireBeetle, HX711, load-cell bridge and battery](model/images/wiring.svg)
+
+| FireBeetle 2 ESP32-C6 | HX711 |
+| --- | --- |
+| 3V3 | VCC |
+| GND | GND |
+| D3 / GPIO14 | DAT / DT / DOUT |
+| D2 / GPIO8 | SCK / CLK |
+
+The firmware reads **channel A**. Connect a verified bridge's excitation pair to **E+ / E−** and its signal pair to **A+ / A−**. The installed cells' part numbers and two-cell bridge wiring are unconfirmed. Use the sensor datasheet or trace the existing harness to identify the leads before connecting it. [HX711 bridge terminals](https://docs.soldered.com/hx711/hardware/#pin-details-regular-version)
+
+### 3. Fit the contact discs and corner hardware
+
+Fit four M3 heat-set inserts in the chamber's corner bores. Place two one-cent euro coins in the counterplate pockets, with the pockets facing the load tips. Lower the top cover over the electronics. Feed four M3 socket-head screws through the cover and inserts, then fit four M3 nuts from below.
+
+The STEP uses approximately 23 mm of shaft below each corner screw head as a fit reference. Check the actual stack height and screw engagement on your print before selecting the screws. Before tightening, confirm the load tips move freely and the wires stay clear of the rails and cover seam.
+
+![Exploded fastener stack showing four M3 screws, top cover, four heat-set inserts, chamber, two contact discs, counterplate and four nuts](model/images/exploded-assembly.png)
 
 ## Firmware
 
-Flash [ForceGripper.ino](firmware/ForceGripper/ForceGripper.ino) to a DFRobot FireBeetle 2 ESP32-C6. Connect HX711 DOUT to GPIO 14, SCK to GPIO 8, and GND to the board's GND. Set the HX711 module to 80 samples/s if it has a RATE selector.
+Flash [ForceGripper.ino](firmware/ForceGripper/ForceGripper.ino) to a DFRobot FireBeetle 2 ESP32-C6. Use the [wiring map above](#2-mount-and-wire-the-electronics).
 
 In Arduino IDE, install the **esp32** board package, **HX711** by Rob Tillaart, and **NimBLE-Arduino**. Select **DFRobot FireBeetle 2 ESP32-C6** then set **Tools → USB CDC On Boot → Enabled** and **Tools → Partition Scheme → Minimal SPIFFS**. The build was checked with ESP32 core 3.3.8, HX711 0.6.3, and NimBLE-Arduino 2.5.0.
 
