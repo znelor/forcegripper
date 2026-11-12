@@ -16,11 +16,13 @@ Lowrails HX711 M3 v3. [Full STEP assembly](model/forcegripper_v3.step) · [Chamb
 | 2 | One-cent euro coins for the counterplate contact pockets |
 | As needed | Hookup wire and heat-shrink tubing for the two sensor splices |
 
+| Three-wire half-bridge load cells | Soldered HX711 333005 | FireBeetle 2 ESP32-C6 |
+| :---: | :---: | :---: |
+| <img src="https://sensor-con.com/products/SC134-HB-1024-iso.png" alt="Representative square three-wire half-bridge load cells" width="180"> | <img src="https://mm.digikey.com/Volume0/opasdata/d220001/derivates/1/002/203/396/MFG_333005_secondary_sml%28200x200%29.jpg" alt="Soldered Electronics HX711 breakout 333005" width="180"> | <img src="https://dfimg.dfrobot.com/enshop/DFR1075/DFR1075_Main_01.jpg" alt="DFRobot FireBeetle 2 ESP32-C6 DFR1075" width="180"> |
+
+The load-cell photo shows a representative half-bridge model. The part number of the cells used in the gripper is unconfirmed. [Sensor and Control](https://sensor-con.com/product/sc134/) · [DigiKey](https://www.digikey.com/en/products/detail/soldered-electronics/333005/21720457) · [DFRobot](https://www.dfrobot.com/product-2771.html)
+
 ## 1. Fit the load cells
-
-![CAD view of the two 34 mm load cells from the load-tip side](model/images/load-cells.png)
-
-[Photo of a representative three-wire half-bridge sensor](https://sensor-con.com/products/SC134-HB-1024-iso.png). The part number of the gripper’s cells is unconfirmed.
 
 Pass each cell edge-first through the **38 × 10 mm** slot. Turn it flat with the tip down and toward the center, then slide it along the rails to its end stop. Route both sets of leads back through the slot.
 
