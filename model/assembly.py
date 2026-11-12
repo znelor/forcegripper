@@ -80,7 +80,7 @@ def corner_hardware(platform_z):
     for index, (x, y) in enumerate(positions, start=1):
         yield f"Corner screw {index}", screw, Pos(x, y, head_seat), "#657684"
         yield f"Heat-set insert {index}", insert, Pos(x, y, platform_z - chamber.BRASS_INSERT_DEPTH / 2), "#c29443"
-        yield f"Corner nut {index}", nut, Pos(x, y, nut_top - nut_height), "#657684"
+        yield f"M3 nylon nut {index}", nut, Pos(x, y, nut_top - nut_height), "#ded6be"
 
 
 def board_hardware(platform_z):

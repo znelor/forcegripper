@@ -1,65 +1,93 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
-  <title id="title">ForceGripper wiring map</title>
-  <desc id="desc">FireBeetle 3V3 to HX711 VCC, GND to GND, D3 GPIO14 to DAT, and D2 GPIO8 to SCK. A compatible battery plugs into the FireBeetle BAT connector. A verified load-cell bridge connects to HX711 channel A.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="930" viewBox="0 0 1120 930" role="img" aria-labelledby="title desc">
+  <title id="title">ForceGripper wiring</title>
+  <desc id="desc">Join cell A white and cell B black to E plus. Join cell A black and cell B white to E minus. Connect the red leads separately, cell A to A plus and cell B to A minus. Connect the FireBeetle 3V3, GND, D3, and D2 pins to HX711 VCC, GND, DAT, and SCK respectively. The battery plugs into FireBeetle BAT.</desc>
   <defs>
     <style>
-      text { font-family: Arial, sans-serif; fill: #13293b; }
-      .heading { font-weight: 700; font-size: 34px; }
-      .board { font-weight: 700; font-size: 24px; }
-      .pin { font-weight: 700; font-size: 21px; }
-      .caption { font-size: 19px; fill: #3d566a; }
-      .line { fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
-      .contact { fill: #ffffff; stroke: #335064; stroke-width: 2; }
+      text { font-family: Arial, sans-serif; fill: #14283b; }
+      .heading { font-size: 29px; font-weight: 700; }
+      .label { font-size: 20px; font-weight: 700; }
+      .pin { font-size: 19px; font-weight: 700; }
+      .small { font-size: 18px; fill: #3a5266; }
+      .kicker { font-size: 15px; font-weight: 700; letter-spacing: 1.5px; fill: #42617b; }
+      .wire { fill: none; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+      .white-edge { stroke: #718799; stroke-width: 9; }
+      .white { stroke: #fff; }
+      .black { stroke: #15212b; }
+      .red { stroke: #be303f; }
+      .exc { stroke: #0e766e; }
+      .ground { stroke: #344d62; }
+      .data { stroke: #713f94; }
+      .clock { stroke: #2262a7; }
+      .terminal { fill: #fff; stroke: #294a60; stroke-width: 2.5; }
     </style>
-    <marker id="data-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-      <path d="M0 0L10 5L0 10z" fill="#694294"/>
-    </marker>
-    <marker id="clock-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
-      <path d="M0 0L10 5L0 10z" fill="#295f9e"/>
-    </marker>
   </defs>
-  <rect width="1200" height="720" fill="#f4f8fc"/>
-  <text x="54" y="64" class="heading">Wire the HX711 to the FireBeetle</text>
-  <text x="55" y="104" class="caption">Logical terminal map · find the physical pads on the linked manufacturer pinouts</text>
+  <rect width="1120" height="930" rx="18" fill="#f4f8fb"/>
+  <rect x="32" y="28" width="1056" height="504" rx="14" fill="#eaf1f6" stroke="#cad9e4"/>
+  <text x="60" y="65" class="kicker">LOAD CELLS → HX711</text>
+  <text x="60" y="102" class="heading">Cross the white and black leads</text>
 
-  <rect x="54" y="145" width="310" height="318" rx="15" fill="#e2eefc" stroke="#8aa9c4" stroke-width="2"/>
-  <text x="79" y="184" class="board">FireBeetle 2 ESP32-C6</text>
-  <text x="328" y="235" text-anchor="end" class="pin">3V3</text>
-  <text x="328" y="291" text-anchor="end" class="pin">GND</text>
-  <text x="328" y="347" text-anchor="end" class="pin">D3 / GPIO14</text>
-  <text x="328" y="403" text-anchor="end" class="pin">D2 / GPIO8</text>
-  <text x="135" y="443" text-anchor="middle" class="pin">BAT</text>
+  <rect x="60" y="186" width="216" height="210" rx="13" fill="#fff" stroke="#9bb0c1" stroke-width="2"/>
+  <text x="81" y="219" class="label">Cell A</text>
+  <text x="251" y="259" text-anchor="end" class="pin">White</text>
+  <text x="251" y="304" text-anchor="end" class="pin">Red</text>
+  <text x="251" y="349" text-anchor="end" class="pin">Black</text>
 
-  <rect x="836" y="145" width="310" height="318" rx="15" fill="#deefe8" stroke="#7aa899" stroke-width="2"/>
-  <text x="865" y="184" class="board">HX711 breakout</text>
-  <text x="872" y="235" class="pin">VCC</text>
-  <text x="872" y="291" class="pin">GND</text>
-  <text x="872" y="347" class="pin">DAT / DT / DOUT</text>
-  <text x="872" y="403" class="pin">SCK / CLK</text>
-  <text x="996" y="443" text-anchor="middle" class="pin">Bridge terminals</text>
+  <rect x="844" y="186" width="216" height="210" rx="13" fill="#fff" stroke="#9bb0c1" stroke-width="2"/>
+  <text x="868" y="219" class="label">Cell B</text>
+  <text x="869" y="259" class="pin">Black</text>
+  <text x="869" y="304" class="pin">Red</text>
+  <text x="869" y="349" class="pin">White</text>
 
-  <path d="M364 228H836" class="line" stroke="#ac3548"/>
-  <path d="M364 284H836" class="line" stroke="#244659"/>
-  <path d="M836 340H364" class="line" stroke="#694294"/>
-  <path d="M364 396H836" class="line" stroke="#295f9e"/>
-  <path d="M654 340H548" class="line" stroke="#694294" marker-end="url(#data-arrow)"/>
-  <path d="M548 396H654" class="line" stroke="#295f9e" marker-end="url(#clock-arrow)"/>
-  <g class="contact">
-    <circle cx="364" cy="228" r="6"/><circle cx="836" cy="228" r="6"/>
-    <circle cx="364" cy="284" r="6"/><circle cx="836" cy="284" r="6"/>
-    <circle cx="364" cy="340" r="6"/><circle cx="836" cy="340" r="6"/>
-    <circle cx="364" cy="396" r="6"/><circle cx="836" cy="396" r="6"/>
+  <rect x="436" y="230" width="248" height="123" rx="13" fill="#d7eee5" stroke="#73a99c" stroke-width="2"/>
+  <text x="560" y="283" text-anchor="middle" class="label">HX711</text>
+  <text x="560" y="313" text-anchor="middle" class="small">Channel A</text>
+  <text x="560" y="253" text-anchor="middle" class="pin">E+</text>
+  <text x="560" y="344" text-anchor="middle" class="pin">E−</text>
+  <text x="452" y="304" class="pin">A+</text>
+  <text x="668" y="304" text-anchor="end" class="pin">A−</text>
+
+  <path d="M276 252H339V148H560 M844 342H781V436H560" class="wire white-edge"/>
+  <path d="M276 252H339V148H560 M844 342H781V436H560" class="wire white"/>
+  <path d="M844 252H781V148H560 M276 342H339V436H560" class="wire black"/>
+  <path d="M560 148V230 M560 436V353" class="wire exc"/>
+  <path d="M276 297H436 M844 297H684" class="wire red"/>
+
+  <g class="terminal">
+    <circle cx="276" cy="252" r="5"/><circle cx="276" cy="297" r="5"/><circle cx="276" cy="342" r="5"/>
+    <circle cx="844" cy="252" r="5"/><circle cx="844" cy="297" r="5"/><circle cx="844" cy="342" r="5"/>
+    <circle cx="560" cy="230" r="5"/><circle cx="560" cy="353" r="5"/>
+    <circle cx="436" cy="297" r="5"/><circle cx="684" cy="297" r="5"/>
   </g>
+  <circle cx="560" cy="148" r="8" fill="#0e766e"/>
+  <circle cx="560" cy="436" r="8" fill="#0e766e"/>
+  <text x="560" y="134" text-anchor="middle" class="small">A white + B black</text>
+  <text x="560" y="467" text-anchor="middle" class="small">A black + B white</text>
+  <text x="560" y="507" text-anchor="middle" class="small">Each teal dot is one splice. The two red leads stay separate.</text>
 
-  <path d="M130 463V509M140 463V509" class="line" stroke="#9a4b76"/>
-  <rect x="54" y="509" width="310" height="157" rx="15" fill="#f5e8ef" stroke="#bc91a8" stroke-width="2"/>
-  <text x="79" y="551" class="board">LiPo battery</text>
-  <text x="79" y="590" class="caption">Use a compatible BAT plug.</text>
-  <text x="79" y="623" class="caption">Verify connector polarity.</text>
+  <rect x="32" y="552" width="1056" height="350" rx="14" fill="#eaf1f6" stroke="#cad9e4"/>
+  <text x="60" y="588" class="kicker">HX711 → FIREBEETLE</text>
+  <rect x="60" y="613" width="304" height="220" rx="13" fill="#d7eee5" stroke="#73a99c" stroke-width="2"/>
+  <rect x="756" y="613" width="304" height="220" rx="13" fill="#dceafa" stroke="#90abc6" stroke-width="2"/>
+  <text x="85" y="648" class="label">HX711</text>
+  <text x="782" y="648" class="label">FireBeetle 2 ESP32-C6</text>
 
-  <path d="M960 463V509M982 463V509M1004 463V509M1026 463V509" class="line" stroke="#ad4e18"/>
-  <rect x="558" y="509" width="588" height="157" rx="15" fill="#fbefe3" stroke="#c8986f" stroke-width="2"/>
-  <text x="584" y="551" class="board">Verified load-cell bridge or harness</text>
-  <text x="584" y="590" class="caption">Excitation + / − → E+ / E−</text>
-  <text x="584" y="623" class="caption">Signal + / − → A+ / A− · channel A</text>
+  <path d="M364 676H756" class="wire red"/>
+  <path d="M364 715H756" class="wire ground"/>
+  <path d="M364 754H756" class="wire data"/>
+  <path d="M364 793H756" class="wire clock"/>
+  <g class="terminal">
+    <circle cx="364" cy="676" r="5"/><circle cx="756" cy="676" r="5"/>
+    <circle cx="364" cy="715" r="5"/><circle cx="756" cy="715" r="5"/>
+    <circle cx="364" cy="754" r="5"/><circle cx="756" cy="754" r="5"/>
+    <circle cx="364" cy="793" r="5"/><circle cx="756" cy="793" r="5"/>
+  </g>
+  <g class="pin" text-anchor="end">
+    <text x="339" y="683">VCC</text><text x="339" y="722">GND</text>
+    <text x="339" y="761">DAT / DT / DOUT</text><text x="339" y="800">SCK / CLK</text>
+  </g>
+  <g class="pin">
+    <text x="781" y="683">3V3</text><text x="781" y="722">GND</text>
+    <text x="781" y="761">D3 / GPIO14</text><text x="781" y="800">D2 / GPIO8</text>
+  </g>
+  <text x="60" y="875" class="small">Battery → FireBeetle BAT connector · check plug polarity</text>
 </svg>
