@@ -28,7 +28,7 @@ The build uses the **34 × 34 mm stamped-steel, three-wire half-bridge** style. 
 
 ![Load-cell CAD fit model showing the stamped relief, raised load tip, and red, white, and black leads](model/images/load-cell-detail.png)
 
-The stamped relief and wire exit are approximations from the product photos. The fit model retains the v3 body and tip dimensions.
+The fit model retains the v3 body and tip dimensions, with rounded corners and a stamped relief approximated from the product photos.
 
 Pass each cell edge-first through the **38 × 10 mm** slot. Turn it flat with the tip down and toward the center, then slide it along the rails to its end stop. Route both sets of leads back through the slot.
 

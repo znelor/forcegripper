@@ -25,7 +25,7 @@ def pcb(length, width, holes, hole_diameter):
 
 def load_cell():
     """Photo-based sensor reference with the v3 fit dimensions and tip pointing down."""
-    plate = extrude(RectangleRounded(chamber.SENSOR_DEPTH, chamber.SENSOR_WIDTH, 1.5),
+    plate = extrude(RectangleRounded(chamber.SENSOR_DEPTH, chamber.SENSOR_WIDTH, 5.0),
                     amount=chamber.SENSOR_THICKNESS)
     # Approximate the stamped U-shaped relief. Leave the tongue joined at +X.
     outer = RectangleRounded(25, 22, 5)
